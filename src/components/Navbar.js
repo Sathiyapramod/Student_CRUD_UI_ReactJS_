@@ -1,5 +1,7 @@
 import * as React from "react";
+import { useState } from "react";
 import { styled, useTheme } from "@mui/material/styles";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -13,10 +15,12 @@ import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import ListItem from "@mui/material/ListItem";
+import WbSunnyTwoToneIcon from "@mui/icons-material/WbSunnyTwoTone";
+import DarkModeTwoToneIcon from "@mui/icons-material/DarkModeTwoTone";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
 import { Link } from "react-router-dom";
-import Button from '@mui/material/Button';
+import Button from "@mui/material/Button";
 
 const drawerWidth = 240;
 
@@ -65,6 +69,13 @@ const DrawerHeader = styled("div")(({ theme }) => ({
 }));
 
 export default function Navbar() {
+  const [flag, setFlag] = useState(true);
+  const ChangeTheme = createTheme({
+    palette: {
+      mode: flag ? "light" : "dark",
+    },
+  });
+
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 
@@ -77,68 +88,89 @@ export default function Navbar() {
   };
   const linkstyling = {
     color: "white",
-    textDecoration: "none"
-  }
+    textDecoration: "none",
+  };
 
   return (
-    <Box sx={{ display: "flex" }}>
-      <CssBaseline />
-      <AppBar position="fixed" open={open} >
-        <Toolbar className="d-flex flex-row justify-content-between">
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            onClick={handleDrawerOpen}
-            edge="start"
-            sx={{ mr: 2, ...(open && { display: "none" }) }}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="h6" noWrap component="div">
-            Welcome to Students DASHBOARD
-          </Typography>
-          <div className="d-flex text-end justify-content-end text-end align-items-end flex-row">
-            <Link to="/" style={linkstyling}><Button color="inherit">HOME</Button></Link>
-            <Link to="/users" style={linkstyling}><Button color="inherit">Users</Button></Link>
-            <Link to="/create" style={linkstyling}><Button color="inherit">Add-User</Button></Link>
-          </div>
-        </Toolbar>
-      </AppBar>
-      <Drawer
-        sx={{
-          width: drawerWidth,
-          flexShrink: 0,
-          "& .MuiDrawer-paper": {
+    <ThemeProvider theme={ChangeTheme}>
+      <Box sx={{ display: "flex" }}>
+        <CssBaseline />
+        <AppBar position="fixed" open={open}>
+          <Toolbar className="d-flex flex-row justify-content-between">
+            <IconButton
+              color="inherit"
+              aria-label="open drawer"
+              onClick={handleDrawerOpen}
+              edge="start"
+              sx={{ mr: 2, ...(open && { display: "none" }) }}
+            >
+              <MenuIcon />
+            </IconButton>
+            <Typography variant="h6" noWrap component="div">
+              Welcome to Students DASHBOARD
+            </Typography>
+            <div className="d-flex text-end justify-content-end text-end align-items-end flex-row">
+              <Link to="/" style={linkstyling}>
+                <Button color="inherit">HOME</Button>
+              </Link>
+              <Link to="/users" style={linkstyling}>
+                <Button color="inherit">Users</Button>
+              </Link>
+              <Link to="/create" style={linkstyling}>
+                <Button color="inherit">Add-User</Button>
+              </Link>
+              <Button
+                color="inherit"
+                onClick={() => {
+                  setFlag(!flag);
+                  console.log(flag);
+                }}
+              >
+                {flag ? <WbSunnyTwoToneIcon /> : <DarkModeTwoToneIcon />}
+              </Button>
+            </div>
+          </Toolbar>
+        </AppBar>
+        <Drawer
+          sx={{
             width: drawerWidth,
-            boxSizing: "border-box",
-          },
-        }}
-        variant="persistent"
-        anchor="left"
-        open={open}
-      >
-        <DrawerHeader>
-        Welcome !
-          <IconButton onClick={handleDrawerClose}>
-            {theme.direction === "ltr" ? (
-              <ChevronLeftIcon />
-            ) : (
-              <ChevronRightIcon />
+            flexShrink: 0,
+            "& .MuiDrawer-paper": {
+              width: drawerWidth,
+              boxSizing: "border-box",
+            },
+          }}
+          variant="persistent"
+          anchor="left"
+          open={open}
+        >
+          <DrawerHeader>
+            <div className="mx-auto fs-4 p-3">Welcome 😉</div>
+            <IconButton onClick={handleDrawerClose}>
+              {theme.direction === "ltr" ? (
+                <ChevronLeftIcon />
+              ) : (
+                <ChevronRightIcon />
+              )}
+            </IconButton>
+          </DrawerHeader>
+          <Divider />
+          <List>
+            {["STUDENTS", "TEACHERS", "About", "Contact Us"].map(
+              (text, index) => (
+                <ListItem key={index} disablePadding>
+                  <ListItemButton>
+                    <ListItemText primary={text} />
+                    {index === 2 ? <Divider /> : ""}
+                    <Divider />
+                  </ListItemButton>
+                </ListItem>
+              )
             )}
-          </IconButton>
-        </DrawerHeader>
-        <Divider />
-        <List>
-          {["STUDENTS", "TEACHERS", "About", "Contact Us"].map((text, index) => (
-            <ListItem key={index} disablePadding>
-              <ListItemButton>
-                <ListItemText primary={text} />
-              </ListItemButton>
-            </ListItem>
-          ))}
-        </List>
-        <Divider />
-      </Drawer>
-    </Box>
+          </List>
+          <Divider />
+        </Drawer>
+      </Box>
+    </ThemeProvider>
   );
 }

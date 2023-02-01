@@ -1,12 +1,14 @@
-import React from "react";
+import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
 import { useFormik } from "formik";
 import * as yup from "yup";
+import { API } from "./components/General";
 import { useNavigate } from "react-router-dom";
 
 const formValidationScheme = yup.object({
   name: yup
     .string()
-    .min(6, "Enter valid name only !!!")
+    .min(5, "Enter valid name only !!!")
     .required("Name is Mandatory "),
   id: yup
     .number()
@@ -22,10 +24,27 @@ const formValidationScheme = yup.object({
     .required("Mandatory to enter Country !! "),
 });
 
-function BasicForm() {
+export function Edit() {
+  const { id } = useParams();
+  const [arr, setUser] = useState(null);
+  useEffect(() => {
+    fetch(`${API}/students/${id}`, { method: "GET" })
+      .then((response) => response.json())
+      .then((result) => {
+        setUser(result);
+      });
+  }, [id]);
+  return arr ? <EditUser arr={arr} /> : "Loading... ";
+}
+function EditUser({ arr }) {
   const navigate = useNavigate();
   const formik = useFormik({
-    initialValues: { name: "", id: "", place: "", country: "" },
+    initialValues: {
+      name: arr.name,
+      id: arr.id,
+      place: arr.place,
+      country: arr.country,
+    },
     validationSchema: formValidationScheme,
     onSubmit: (data) => {
       const newUser = {
@@ -35,8 +54,8 @@ function BasicForm() {
         country: data.country,
       };
       console.log(newUser);
-      fetch(`https://63cf7c7f1098240437808ea0.mockapi.io/students`, {
-        method: "POST",
+      fetch(`${API}/students/${data.id}`, {
+        method: "PUT",
         body: JSON.stringify(newUser),
         headers: {
           "Context-type": "application/json",
@@ -44,23 +63,23 @@ function BasicForm() {
       })
         .then((data) => data.json())
         .then(() => {
-          alert("User Added Successfully !");
+          alert("Data Saved Successfully !");
           navigate("/users");
         });
     },
   });
   return (
-    <div>
-      {Array(3)
-        .fill("null")
-        .map(() => {
-          return <br />;
-        })}
+    <div className="justify-content-center mt-3">
+    {Array(3).fill("null").map(()=> {
+        return (
+            <br />
+        )
+    })}
+    <h1>Edit User Details </h1>
       <form
         onSubmit={formik.handleSubmit}
         className="d-flex flex-column gap-4 align-items-center"
       >
-        <span className="fs-2">Create a New User </span>
         <div className="d-flex flex-row align-items-center">
           <div className="col-6">
             <label htmlFor="name" className="form-label">
@@ -92,7 +111,7 @@ function BasicForm() {
               value={formik.values.id}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
-            />{" "}
+            />
           </div>
           <br />
           {formik.touched.id && formik.errors.id ? formik.errors.id : ""}
@@ -139,12 +158,10 @@ function BasicForm() {
         </div>
         <div className="col-7">
           <button type="submit" className="btn btn-outline-primary">
-            Submit
+            Save
           </button>
         </div>
       </form>
     </div>
   );
 }
-
-export default BasicForm;

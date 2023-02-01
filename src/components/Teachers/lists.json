@@ -1,0 +1,42 @@
+[
+  {
+    "name": "Robert",
+    "Subject": "Javascript",
+    "Age": "32",
+    "Gender": "male",
+    "Remarks": "Nil",
+    "Rating": 7.2
+  },
+  {
+    "name": "Kumar",
+    "Subject": "ReactJS, Javascript",
+    "Age": "27",
+    "Gender": "Male",
+    "Remarks": "Nil",
+    "Rating": 7.0
+  },
+  {
+    "name": "Elizabeth",
+    "Subject": "C, C++",
+    "Age": "33",
+    "Gender": "Female",
+    "Remarks": "Nil",
+    "Rating": 6.9
+  },
+  {
+    "name": "Adams",
+    "Subject": "HTML",
+    "Age": "29",
+    "Gender": "Female",
+    "Remarks": "Nil",
+    "Rating": 7.4 
+  },
+  {
+    "name": "Catherine",
+    "Subject": "Javascript, Ruby",
+    "Age": "28",
+    "Gender": "Female",
+    "Remarks": "Nil",
+    "Rating": 7.5 
+  }
+]

@@ -1,7 +1,18 @@
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useEffect } from "react";
-import { Button } from "@mui/material";
+import {
+  Button,
+  TableContainer,
+  Table,
+  Paper,
+  TableHead,
+  TableCell,
+  TableBody,
+  TableRow,
+} from "@mui/material";
+import ModeEditOutlineRoundedIcon from "@mui/icons-material/ModeEditOutlineRounded";
+import DeleteForeverRoundedIcon from "@mui/icons-material/DeleteForeverRounded";
 
 export function Users() {
   const navigate = useNavigate();
@@ -15,51 +26,58 @@ export function Users() {
   };
   useEffect(() => getData(), []);
   return (
-    <div className="User-list container bg-lighter mt-3">
+    <div className="container mt-3">
       <h1>Users Lists </h1>
-      <table className="table table-striped">
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Name</th>
-            <th>Place</th>
-            <th>Country</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {arr.map((element, index) => {
-            return (
-              <tr key={index}>
-                <td>{element.id}</td>
-                <td>{element.name}</td>
-                <td>{element.place}</td>
-                <td>{element.country}</td>
-                <td>
-                  <Button
-                    variant="outlined"
-                    color="error"
-                    onClick={() => {
-                      alert("Are you Sure want to delete ???");
-                      fetch(
-                        `https://63cf7c7f1098240437808ea0.mockapi.io/students/${element.id}`,
-                        { method: "DELETE" }
-                      ).then(() => getData());
-                    }}
-                  >
-                    Delete
-                  </Button>
-                </td>
-              </tr>
-            );
-          })}
-          <tr>
-            <td colSpan={5}>
-              <Button onClick={() => navigate("/")}>Go Back</Button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+      <TableContainer component={Paper} className="p-3">
+        <Table aria-label="table">
+          <TableHead>
+            {["#", "Name", "Place", "Country", "Actions"].map(
+              (element, index) => {
+                return <TableCell key={index}>{element}</TableCell>;
+              }
+            )}
+          </TableHead>
+          <TableBody>
+            {arr.map((element, index) => {
+              return (
+                <TableRow
+                  key={index}
+                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                >
+                  <TableCell>{element.id}</TableCell>
+                  <TableCell>{element.name}</TableCell>
+                  <TableCell>{element.place}</TableCell>
+                  <TableCell>{element.country}</TableCell>
+                  <TableCell>
+                    {" "}
+                    <Button
+                      variant="outlined"
+                      onClick={() => {
+                        navigate(`/students/edit/${element.id}`);
+                      }}
+                    >
+                      <ModeEditOutlineRoundedIcon />
+                    </Button>
+                    <Button
+                      variant="outlined"
+                      color="error"
+                      onClick={() => {
+                        alert("Are you Sure want to delete ???");
+                        fetch(
+                          `https://63cf7c7f1098240437808ea0.mockapi.io/students/${element.id}`,
+                          { method: "DELETE" }
+                        ).then(() => getData());
+                      }}
+                    >
+                      <DeleteForeverRoundedIcon />
+                    </Button>
+                  </TableCell>
+                </TableRow>
+              );
+            })}
+          </TableBody>
+        </Table>
+      </TableContainer>
     </div>
   );
 }
