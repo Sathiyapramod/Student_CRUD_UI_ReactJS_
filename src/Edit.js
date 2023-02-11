@@ -64,7 +64,7 @@ function EditUser({ arr }) {
         .then((data) => data.json())
         .then(() => {
           alert("Data Saved Successfully !");
-          navigate("/users");
+          navigate("/dashboard");
         });
     },
   });

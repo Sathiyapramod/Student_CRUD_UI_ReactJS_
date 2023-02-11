@@ -14,7 +14,7 @@ import {
 import ModeEditOutlineRoundedIcon from "@mui/icons-material/ModeEditOutlineRounded";
 import DeleteForeverRoundedIcon from "@mui/icons-material/DeleteForeverRounded";
 
-export function Users() {
+export function Students() {
   const navigate = useNavigate();
   const [arr, setArr] = useState([]);
   const getData = () => {
@@ -31,11 +31,13 @@ export function Users() {
       <TableContainer component={Paper} className="p-3">
         <Table aria-label="table">
           <TableHead>
-            {["#", "Name", "Place", "Country", "Actions"].map(
-              (element, index) => {
-                return <TableCell key={index}>{element}</TableCell>;
-              }
-            )}
+            <TableRow>
+              {["#", "Name", "Place", "Country", "Actions"].map(
+                (element, index) => {
+                  return <TableCell key={index}>{element}</TableCell>;
+                }
+              )}
+            </TableRow>
           </TableHead>
           <TableBody>
             {arr.map((element, index) => {
@@ -49,7 +51,6 @@ export function Users() {
                   <TableCell>{element.place}</TableCell>
                   <TableCell>{element.country}</TableCell>
                   <TableCell>
-                    {" "}
                     <Button
                       variant="outlined"
                       onClick={() => {
@@ -75,6 +76,11 @@ export function Users() {
                 </TableRow>
               );
             })}
+            <TableCell colSpan={5} align="center">
+              <Button variant="outlined" onClick={() => navigate("/dashboard")}>
+                Go back
+              </Button>
+            </TableCell>
           </TableBody>
         </Table>
       </TableContainer>

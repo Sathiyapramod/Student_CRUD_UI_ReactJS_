@@ -51,10 +51,9 @@ function BasicForm() {
   });
   return (
     <div>
-      {Array(3)
-        .fill("null")
-        .map(() => {
-          return <br />;
+      {[1,2,3]
+        .map((index) => {
+          return <br key={index} />;
         })}
       <form
         onSubmit={formik.handleSubmit}

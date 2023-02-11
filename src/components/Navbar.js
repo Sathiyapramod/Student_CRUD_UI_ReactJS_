@@ -86,8 +86,8 @@ export default function Navbar() {
   const handleDrawerClose = () => {
     setOpen(false);
   };
-  const linkstyling = {
-    color: "white",
+  const menuStyling = {
+    color: flag ? "black" : "white",
     textDecoration: "none",
   };
 
@@ -110,20 +110,13 @@ export default function Navbar() {
               Welcome to Students DASHBOARD
             </Typography>
             <div className="d-flex text-end justify-content-end text-end align-items-end flex-row">
-              <Link to="/" style={linkstyling}>
-                <Button color="inherit">HOME</Button>
-              </Link>
-              <Link to="/users" style={linkstyling}>
-                <Button color="inherit">Users</Button>
-              </Link>
-              <Link to="/create" style={linkstyling}>
-                <Button color="inherit">Add-User</Button>
+              <Link to="/create" style={menuStyling}>
+                <Button>Add-User</Button>
               </Link>
               <Button
                 color="inherit"
                 onClick={() => {
                   setFlag(!flag);
-                  console.log(flag);
                 }}
               >
                 {flag ? <WbSunnyTwoToneIcon /> : <DarkModeTwoToneIcon />}
@@ -156,17 +149,42 @@ export default function Navbar() {
           </DrawerHeader>
           <Divider />
           <List>
-            {["STUDENTS", "TEACHERS", "About", "Contact Us"].map(
-              (text, index) => (
-                <ListItem key={index} disablePadding>
-                  <ListItemButton>
-                    <ListItemText primary={text} />
-                    {index === 2 ? <Divider /> : ""}
+            {[
+              {
+                name: "Home",
+                path: "/",
+              },
+              {
+                name: "Dashboard",
+                path: "/dashboard",
+              },
+              {
+                name: "Students",
+                path: "/students",
+              },
+
+              {
+                name: "Teachers",
+                path: "/teachers",
+              },
+              {
+                name: "About",
+                path: "/about",
+              },
+              {
+                name: "Contact Us",
+                path: "/contact-us",
+              },
+            ].map((text, index) => (
+              <ListItem key={index} disablePadding>
+                <ListItemButton>
+                  <Link to={text.path} style={menuStyling}>
+                    <ListItemText primary={text.name} />
                     <Divider />
-                  </ListItemButton>
-                </ListItem>
-              )
-            )}
+                  </Link>
+                </ListItemButton>
+              </ListItem>
+            ))}
           </List>
           <Divider />
         </Drawer>
