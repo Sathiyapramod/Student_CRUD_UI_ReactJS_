@@ -2,6 +2,7 @@ import React from "react";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { useNavigate } from "react-router-dom";
+import Paper from "@mui/material/Paper";
 
 const formValidationScheme = yup.object({
   name: yup
@@ -45,103 +46,103 @@ function BasicForm() {
         .then((data) => data.json())
         .then(() => {
           alert("User Added Successfully !");
-          navigate("/users");
+          navigate("/students");
         });
     },
   });
   return (
-    <div>
-      {[1,2,3]
-        .map((index) => {
-          return <br key={index} />;
-        })}
-      <form
-        onSubmit={formik.handleSubmit}
-        className="d-flex flex-column gap-4 align-items-center"
-      >
-        <span className="fs-2">Create a New User </span>
-        <div className="d-flex flex-row align-items-center">
-          <div className="col-6">
-            <label htmlFor="name" className="form-label">
-              First Name
-            </label>
+    <div className="d-flex flex-row justify-content-center align-items-center p-3">
+      <Paper elevation={6} sx={{ width:'50%'}}>
+        <form
+          onSubmit={formik.handleSubmit}
+          className="d-flex flex-column gap-4 align-items-center"
+        >
+          <span className="fs-2">Create a New Student </span>
+          <div className="d-flex flex-row align-items-center">
+            <div className="col-6">
+              <label htmlFor="name" className="form-label">
+                First Name
+              </label>
+            </div>
+            <div className="col-6">
+              <input
+                id="name"
+                type="text"
+                className="form-control"
+                value={formik.values.name}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+              />
+            </div>
+            <br />
+            {formik.touched.name && formik.errors.name
+              ? formik.errors.name
+              : ""}
           </div>
-          <div className="col-6">
-            <input
-              id="name"
-              type="text"
-              className="form-control"
-              value={formik.values.name}
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-            />
+          <div className="d-flex flex-row align-items-center">
+            <div className="col-6">
+              <label htmlFor="name">ID number</label>
+            </div>
+            <div className="col-6">
+              <input
+                id="id"
+                type="text"
+                className="form-control"
+                value={formik.values.id}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+              />{" "}
+            </div>
+            <br />
+            {formik.touched.id && formik.errors.id ? formik.errors.id : ""}
           </div>
-          <br />
-          {formik.touched.name && formik.errors.name ? formik.errors.name : ""}
-        </div>
-        <div className="d-flex flex-row align-items-center">
-          <div className="col-6">
-            <label htmlFor="name">ID number</label>
+          <div className="d-flex flex-row align-items-center">
+            <div className="col-6">
+              <label htmlFor="place" className="form-label">
+                Place
+              </label>
+            </div>
+            <div className="col-6">
+              <input
+                id="place"
+                type="text"
+                className="form-control"
+                onChange={formik.handleChange}
+                value={formik.values.place}
+                onBlur={formik.handleBlur}
+              />
+            </div>
+            <br />
+            {formik.touched.place && formik.errors.place
+              ? formik.errors.place
+              : ""}
           </div>
-          <div className="col-6">
-            <input
-              id="id"
-              type="text"
-              className="form-control"
-              value={formik.values.id}
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-            />{" "}
+          <div className="d-flex flex-row align-items-center">
+            <div className="col-6">
+              <label htmlFor="country"> Country </label>
+            </div>
+            <div className="col-6">
+              <input
+                id="country"
+                type="text"
+                className="form-control"
+                value={formik.values.country}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+              />
+            </div>
+            <br />
+            {formik.touched.country && formik.errors.country
+              ? formik.errors.country
+              : ""}
           </div>
-          <br />
-          {formik.touched.id && formik.errors.id ? formik.errors.id : ""}
-        </div>
-        <div className="d-flex flex-row align-items-center">
-          <div className="col-6">
-            <label htmlFor="place" className="form-label">
-              Place
-            </label>
+          <div className="col-7">
+            <button type="submit" className="btn btn-outline-primary">
+              Submit
+            </button>
           </div>
-          <div className="col-6">
-            <input
-              id="place"
-              type="text"
-              className="form-control"
-              onChange={formik.handleChange}
-              value={formik.values.place}
-              onBlur={formik.handleBlur}
-            />
-          </div>
-          <br />
-          {formik.touched.place && formik.errors.place
-            ? formik.errors.place
-            : ""}
-        </div>
-        <div className="d-flex flex-row align-items-center">
-          <div className="col-6">
-            <label htmlFor="country"> Country </label>
-          </div>
-          <div className="col-6">
-            <input
-              id="country"
-              type="text"
-              className="form-control"
-              value={formik.values.country}
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-            />
-          </div>
-          <br />
-          {formik.touched.country && formik.errors.country
-            ? formik.errors.country
-            : ""}
-        </div>
-        <div className="col-7">
-          <button type="submit" className="btn btn-outline-primary">
-            Submit
-          </button>
-        </div>
-      </form>
+        </form>
+      </Paper>
     </div>
   );
 }

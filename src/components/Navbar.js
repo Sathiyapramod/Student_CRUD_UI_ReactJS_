@@ -91,6 +91,10 @@ export default function Navbar() {
     textDecoration: "none",
   };
 
+  const navbarLinkStyling ={
+    color: flag ? 'white' : 'black',
+    textDecoration :'none'
+  }
   return (
     <ThemeProvider theme={ChangeTheme}>
       <Box sx={{ display: "flex" }}>
@@ -110,8 +114,8 @@ export default function Navbar() {
               Welcome to Students DASHBOARD
             </Typography>
             <div className="d-flex text-end justify-content-end text-end align-items-end flex-row">
-              <Link to="/create" style={menuStyling}>
-                <Button>Add-User</Button>
+              <Link to="/create" style={navbarLinkStyling}>
+                <Button color="inherit">Add-User</Button>
               </Link>
               <Button
                 color="inherit"
