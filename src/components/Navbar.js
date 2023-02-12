@@ -92,7 +92,7 @@ export default function Navbar() {
   };
 
   const navbarLinkStyling ={
-    color: flag ? 'white' : 'black',
+    color: 'white',
     textDecoration :'none'
   }
   return (
