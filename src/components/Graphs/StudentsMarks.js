@@ -14,7 +14,6 @@ import { useGlobalContext } from "../Dashboard";
 function StudentsMarks() {
   const students = useGlobalContext().studentsData;
   return (
-    <div>
       <Paper
         sx={{
           width: 920,
@@ -25,6 +24,7 @@ function StudentsMarks() {
           display: "flex",
           justifyContent: "center",
         }}
+        elevation={6}
       >
         <LineChart width={860} height={500} data={students}>
           <CartesianGrid strokeDasharray="3 3" />
@@ -55,7 +55,7 @@ function StudentsMarks() {
           />
         </LineChart>
       </Paper>
-    </div>
+
   );
 }
 

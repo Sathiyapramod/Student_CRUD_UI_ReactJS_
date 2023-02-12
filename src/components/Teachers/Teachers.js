@@ -43,7 +43,7 @@ function Teachers() {
                 <TableRow>
                   {["#", "Faculty Name", "Role", "Age", "Rating", "Action"].map(
                     (element, index) => {
-                      return <TableCell key={index}>{element}</TableCell>;
+                      return <TableCell key={index} sx={{fontSize:20}}>{element}</TableCell>;
                     }
                   )}
                 </TableRow>
@@ -52,11 +52,11 @@ function Teachers() {
                 {arr.map((element, index) => {
                   return (
                     <TableRow key={index}>
-                      <TableCell>{element.id}</TableCell>
-                      <TableCell>{element.name}</TableCell>
-                      <TableCell>{element.Subject}</TableCell>
-                      <TableCell>{element.Age}</TableCell>
-                      <TableCell>{element.Rating}</TableCell>
+                      <TableCell sx={{fontSize:20}}>{element.id}</TableCell>
+                      <TableCell sx={{fontSize:20}}>{element.name}</TableCell>
+                      <TableCell sx={{fontSize:20}}>{element.Subject}</TableCell>
+                      <TableCell sx={{fontSize:20}}>{element.Age}</TableCell>
+                      <TableCell sx={{fontSize:20}}>{element.Rating}</TableCell>
                       <TableCell>
                         <Button
                           variant="outlined"

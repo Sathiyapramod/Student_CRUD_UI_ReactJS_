@@ -26,64 +26,44 @@ export function Students() {
   };
   useEffect(() => getData(), []);
   return (
-    <div className="container mt-3">
-      <h1>Users Lists </h1>
-      <TableContainer component={Paper} className="p-3">
-        <Table aria-label="table">
-          <TableHead>
-            <TableRow>
-              {["#", "Name", "Place", "Country", "Actions"].map(
-                (element, index) => {
-                  return <TableCell key={index}>{element}</TableCell>;
-                }
-              )}
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {arr.map((element, index) => {
-              return (
-                <TableRow
-                  key={index}
-                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                >
-                  <TableCell>{element.id}</TableCell>
-                  <TableCell>{element.name}</TableCell>
-                  <TableCell>{element.place}</TableCell>
-                  <TableCell>{element.country}</TableCell>
-                  <TableCell>
-                    <Button
-                      variant="outlined"
-                      onClick={() => {
-                        navigate(`/students/edit/${element.id}`);
-                      }}
-                    >
-                      <ModeEditOutlineRoundedIcon />
-                    </Button>
-                    <Button
-                      variant="outlined"
-                      color="error"
-                      onClick={() => {
-                        alert("Are you Sure want to delete ???");
-                        fetch(
-                          `https://63cf7c7f1098240437808ea0.mockapi.io/students/${element.id}`,
-                          { method: "DELETE" }
-                        ).then(() => getData());
-                      }}
-                    >
-                      <DeleteForeverRoundedIcon />
-                    </Button>
-                  </TableCell>
-                </TableRow>
-              );
-            })}
-            <TableCell colSpan={5} align="center">
-              <Button variant="outlined" onClick={() => navigate("/dashboard")}>
-                Go back
-              </Button>
-            </TableCell>
-          </TableBody>
-        </Table>
-      </TableContainer>
+    <div className="d-flex flex-row justify-content-center">
+      <Paper elevation={3} sx={{ width: 540 }}>
+        <TableContainer>
+          <Table>
+            <TableHead>
+              <TableRow>
+                {["#", "Name", "Place", "Action"].map((element, index) => {
+                  return <TableCell key={index} sx={{fontSize:20}} align='center'>{element}</TableCell>;
+                })}
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {arr.map((element, index) => {
+                return (
+                  <TableRow key={index}>
+                    <TableCell sx={{fontSize:20}}>{element.id}</TableCell>
+                    <TableCell sx={{fontSize:20}}>{element.name}</TableCell>
+                    <TableCell sx={{fontSize:20}}>{element.place}</TableCell>
+                    <TableCell sx={{fontSize:20}}>
+                      <Button onClick={()=>navigate(`/students/edit/${element.id}`)}>
+                        <ModeEditOutlineRoundedIcon />
+                      </Button>
+                      <Button onClick={()=>{
+                        alert('Are you Sure want to Delete ? ')
+                        fetch(`https://63cf7c7f1098240437808ea0.mockapi.io/students/${element.id}`, {
+                          method:'DELETE'
+                        }).then(()=>getData())
+                      }}>
+                        <DeleteForeverRoundedIcon />
+                      </Button>
+                    </TableCell>
+                  </TableRow>
+                );
+              })}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </Paper>
     </div>
   );
 }

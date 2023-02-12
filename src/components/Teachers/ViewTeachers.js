@@ -45,9 +45,6 @@ function ViewTeachers() {
 
   return (
     <div className="container-fluid">
-      {[1, 2, 3].map((index) => {
-        return <br key={index} />;
-      })}
       <Typography variant="h4">Teachers Details</Typography>
       <Divider />
       <div className="d-flex flex-row justify-content-center align-items-center gap-3">
@@ -211,10 +208,22 @@ function ViewTeachers() {
           </span>
           <br />
           <span className="d-flex flex-row justify-content-between gap-5">
-            <Button type="submit" variant="contained">
+            <Button
+              type="submit"
+              variant="contained"
+              onClick={() => {
+                alert("Data updated Successfully");
+                navigate("/teachers");
+              }}
+            >
               Update Data
             </Button>
-            <Button variant="contained" onClick={() => navigate("/teachers")}>
+            <Button
+              variant="contained"
+              onClick={() => {
+                navigate("/teachers");
+              }}
+            >
               Go Back without Saving{" "}
             </Button>
           </span>

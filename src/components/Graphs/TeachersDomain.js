@@ -15,7 +15,7 @@ function TeachersDomain() {
   const teachers = useGlobalContext().teachersData;
   return (
     <div>
-      <Paper sx={{ width: 850, height: 620, padding: 10,margin:5, }}>
+      <Paper sx={{ width: 850, height: 620, padding: 10,margin:5, }} elevation={6}>
         <BarChart width={740} height={500} data={teachers}>
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="name" />

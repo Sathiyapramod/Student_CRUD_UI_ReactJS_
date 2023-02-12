@@ -5,6 +5,7 @@ import { API } from "./General";
 import StudentsMarks from "./Graphs/StudentsMarks";
 import TeachersDomain from "./Graphs/TeachersDomain";
 import TeachersTable from "./Teachers/TeachersTable";
+import AssignmentData from "./AssignmentData";
 
 const Datum = React.createContext();
 
@@ -35,15 +36,16 @@ function Dashboard() {
       {[1, 2, 3].map((index) => {
         return <br key={index} />;
       })}
-      <Typography>
+      <Typography component='span'>
         <span className="fs-2">Welcome to Admin Dashboard</span>
         <Datum.Provider value={{ studentsData, teachersData }}>
           <div className="d-flex flex-row justify-content-center align-items-center">
             <StudentsMarks />
             <TeachersDomain />
           </div>
-          <div>
+          <div className="d-flex flex-row justify-content-center align-items-center">
             <TeachersTable />
+            <AssignmentData />
           </div>
         </Datum.Provider>
       </Typography>
