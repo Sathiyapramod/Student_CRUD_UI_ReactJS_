@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useEffect } from "react";
+import { API } from "./General";
 import {
   Button,
   TableContainer,
@@ -17,8 +18,9 @@ import DeleteForeverRoundedIcon from "@mui/icons-material/DeleteForeverRounded";
 export function Students() {
   const navigate = useNavigate();
   const [arr, setArr] = useState([]);
+  //GET method to obtain the relevant data from API
   const getData = () => {
-    fetch(`https://63cf7c7f1098240437808ea0.mockapi.io/students`, {
+    fetch(`${API}/students`, {
       method: "GET",
     })
       .then((response) => response.json())
@@ -33,7 +35,11 @@ export function Students() {
             <TableHead>
               <TableRow>
                 {["#", "Name", "Place", "Action"].map((element, index) => {
-                  return <TableCell key={index} sx={{fontSize:20}} align='center'>{element}</TableCell>;
+                  return (
+                    <TableCell key={index} sx={{ fontSize: 20 }} align="center">
+                      {element}
+                    </TableCell>
+                  );
                 })}
               </TableRow>
             </TableHead>
@@ -41,19 +47,23 @@ export function Students() {
               {arr.map((element, index) => {
                 return (
                   <TableRow key={index}>
-                    <TableCell sx={{fontSize:20}}>{element.id}</TableCell>
-                    <TableCell sx={{fontSize:20}}>{element.name}</TableCell>
-                    <TableCell sx={{fontSize:20}}>{element.place}</TableCell>
-                    <TableCell sx={{fontSize:20}}>
-                      <Button onClick={()=>navigate(`/students/edit/${element.id}`)}>
+                    <TableCell sx={{ fontSize: 20 }}>{element.id}</TableCell>
+                    <TableCell sx={{ fontSize: 20 }}>{element.name}</TableCell>
+                    <TableCell sx={{ fontSize: 20 }}>{element.place}</TableCell>
+                    <TableCell sx={{ fontSize: 20 }}>
+                      <Button
+                        onClick={() => navigate(`/students/edit/${element.id}`)}
+                      >
                         <ModeEditOutlineRoundedIcon />
                       </Button>
-                      <Button onClick={()=>{
-                        alert('Are you Sure want to Delete ? ')
-                        fetch(`https://63cf7c7f1098240437808ea0.mockapi.io/students/${element.id}`, {
-                          method:'DELETE'
-                        }).then(()=>getData())
-                      }}>
+                      <Button
+                        onClick={() => {
+                          alert("Are you Sure want to Delete ? ");
+                          fetch(`${API}/students/${element.id}`, {
+                            method: "DELETE",
+                          }).then(() => getData());
+                        }}
+                      >
                         <DeleteForeverRoundedIcon />
                       </Button>
                     </TableCell>

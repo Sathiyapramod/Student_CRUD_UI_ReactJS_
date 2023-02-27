@@ -3,6 +3,7 @@ import { useFormik } from "formik";
 import * as yup from "yup";
 import { useNavigate } from "react-router-dom";
 import Paper from "@mui/material/Paper";
+import { API } from "./General";
 
 const formValidationScheme = yup.object({
   name: yup
@@ -36,7 +37,7 @@ function BasicForm() {
         country: data.country,
       };
       console.log(newUser);
-      fetch(`https://63cf7c7f1098240437808ea0.mockapi.io/students`, {
+      fetch(`${API}/students`, {
         method: "POST",
         body: JSON.stringify(newUser),
         headers: {

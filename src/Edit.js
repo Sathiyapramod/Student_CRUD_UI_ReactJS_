@@ -1,4 +1,5 @@
 import React from "react";
+import { API } from "./components/General";
 import { useNavigate, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import Typography from "@mui/material/Typography";
@@ -17,14 +18,14 @@ function Edit() {
   const { id } = useParams();
   const [user, setUser] = useState({});
   useEffect(() => {
-    fetch(`https://63cf7c7f1098240437808ea0.mockapi.io/students/${id}`, {
+    fetch(`${API}/students/${id}`, {
       method: "GET",
     })
       .then((response) => response.json())
       .then((result) => {
         setUser(result);
       });
-  }, [user,id]);
+  }, [user, id]);
   const navigate = useNavigate();
   return (
     <div className="container-fluid d-flex flex-row justify-content-center align-items-center">
@@ -88,20 +89,17 @@ function Edit() {
           country: values.country,
           id: values.id,
         };
-        fetch(
-          `https://63cf7c7f1098240437808ea0.mockapi.io/students/${values.id}`,
-          {
-            method: "PUT",
-            body: JSON.stringify(editUser),
-            headers: {
-              "content-type": "application/json",
-            },
-          }
-        )
+        fetch(`${API}/students/${values.id}`, {
+          method: "PUT",
+          body: JSON.stringify(editUser),
+          headers: {
+            "content-type": "application/json",
+          },
+        })
           .then((data) => data.json())
           .then(() => {
             alert("DATA updated Successfully ! ");
-            navigate('/students');
+            navigate("/students");
           });
       },
     });
