@@ -8,6 +8,6 @@ RUN npm install -g npm@latest
 # Install dependencies
 RUN npm install
 
-EXPOSE 3000
+EXPOSE 3031
 
 CMD ["npm", "run", "start"]
