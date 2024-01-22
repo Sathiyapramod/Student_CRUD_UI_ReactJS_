@@ -5,7 +5,7 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building..'
-                sh 'docker build -t pipeline .'
+                // sh 'docker build -t pipeline .'
                 echo 'Image Created.......'
             }
         }
