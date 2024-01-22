@@ -1,17 +1,24 @@
 pipeline {
-  agent any
-  options {
-    buildDiscarder(logRotator(numToKeepStr: '5'))
-  }
-  environment {
-    IMAGE_NAME = 'sathiya/react'
-    IMAGE_TAG = 'latest'
-  }
-  stages {
-    stage('Build'){
-      steps {
-        sh 'docker build -t $IMAGE_NAME:$IMAGE_TAG .'
-      }
+    agent any
+
+    stages {
+        stage('Build') {
+            steps {
+                echo 'Building..'
+                sh 'docker build -t pipeline .'
+                echo 'Image Created.......'
+            }
+        }
+        stage('Test') {
+            steps {
+                echo 'Testing..'
+            }
+        }
+        stage('Deploy') {
+            steps {
+                echo 'Deploying....'
+            }
+        }
     }
-  }
 }
+
