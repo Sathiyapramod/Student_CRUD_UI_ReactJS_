@@ -1,12 +1,10 @@
-FROM node:16.16.0-buster AS build
-WORKDIR /build
-
-# COPY package.json package.json
-# COPY package-lock.json package-lock.json
-
+FROM node:latest
+WORKDIR /
 COPY . .
 
-RUN npm i
+RUN npm install
 
-RUN npm run start
+EXPOSE 3000
+
+CMD ["npm", "run" , "start]
 
