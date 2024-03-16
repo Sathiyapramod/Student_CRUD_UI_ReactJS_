@@ -3,7 +3,7 @@ WORKDIR /
 COPY . .
 
 # Update npm
-RUN npm install -g npm@latest
+# RUN npm install -g npm@latest
 
 # Install dependencies
 RUN npm install
