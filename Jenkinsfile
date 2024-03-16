@@ -20,5 +20,10 @@ pipeline {
             }
         }
     }
+    post {
+        always {
+            clearWs()
+        }
+    }
 }
 
